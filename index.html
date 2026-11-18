@@ -151,7 +151,10 @@ body.mode-title .top,body.mode-title .bottom,body.mode-title #banner{display:non
 #over .reg{width:100%;display:flex;gap:8px;margin-top:6px}
 #over .reg input{flex:1;min-width:0;height:48px;box-sizing:border-box;border-radius:12px;border:2px solid #4a4566;background:#12131f;color:var(--ink);font:800 16px var(--body);padding:0 12px}
 #over .reg button{margin:0;width:auto;flex:none;padding:0 16px;height:48px;font-size:16px;background:var(--pink);box-shadow:0 4px 0 #8f1f4a}
-#over .done{margin:0;font-size:13px;font-weight:800;color:var(--cyan)}
+#over .done{margin:0;font-size:13px;font-weight:800;color:var(--cyan);display:flex;align-items:center;justify-content:center;gap:8px;min-height:48px}
+.spin{flex:none;width:18px;height:18px;border-radius:50%;border:3px solid rgba(63,215,224,.25);border-top-color:var(--cyan);animation:spin .7s linear infinite}
+#ranklist .spin{border-color:rgba(90,86,112,.25);border-top-color:#5a5670}
+@keyframes spin{to{transform:rotate(360deg)}}
 #over .row2{width:100%;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
 #over .row2 button{margin:0;height:46px;font:800 14px var(--body);background:transparent;color:var(--ink);border:2px solid #4a4566;box-shadow:none;border-radius:12px}
 .tabs.cat{background:transparent;padding:0;gap:6px}
@@ -764,7 +767,7 @@ async function showRank(myId,scope,sort){
   if(myId!==undefined)rankMe=myId; if(scope)rankScope=scope; if(sort)rankSort=sort;
   $('tabToday').classList.toggle('on',rankScope==='today'); $('tabAll').classList.toggle('on',rankScope==='all');
   document.querySelectorAll('[data-sort]').forEach(b=>b.classList.toggle('on',b.dataset.sort===rankSort));
-  const ol=$('ranklist'); ol.innerHTML='<li class="empty">読み込み中…</li>'; $('rank').hidden=false;
+  const ol=$('ranklist'); ol.innerHTML='<li class="empty"><span class="spin" aria-hidden="true"></span>読み込み中…</li>'; $('rank').hidden=false;
   const S_=SORTS[rankSort]; const res=await loadRank(rankScope,rankSort); const list=res.list.filter(r=>rankSort==='score'||r[S_.k]>0).slice(0,30); ol.innerHTML='';
   $('ranknote').textContent=res.ok?(rankScope==='today'?'今日のみんなの記録（上位30）':'歴代のみんなの記録（上位30）'):'ランキングに接続できないため、この端末の記録を表示しています。';
   if(!list.length){ol.innerHTML='<li class="empty">まだ記録がありません。最初の1位になろう</li>';return;}
@@ -817,8 +820,10 @@ let lastRec=null;
 $('regbtn').addEventListener('click',async()=>{
   const name=($('pname').value||'').trim().slice(0,12)||'名無しの青木ファン';
   lsSet('aoki-name',name); $('regbtn').disabled=true;
-  lastRec.name=name; const pos=await submitRank(lastRec);
-  $('regdone').textContent=pos>0?'登録しました！ 今日の'+pos+'位':'登録しました！'; $('regdone').hidden=false; $('regform').hidden=true;
+  const rd=$('regdone'); rd.innerHTML='<span class="spin" aria-hidden="true"></span>ランキングに登録中…'; rd.setAttribute('role','status'); rd.hidden=false; $('regform').hidden=true;
+  const rec=lastRec; rec.name=name; const pos=await submitRank(rec);
+  if(lastRec!==rec)return;
+  rd.textContent=pos>0?'登録しました！ 今日の'+pos+'位':'登録しました！';
 });
 $('ranksee').addEventListener('click',()=>showRank(lastRec&&lastRec.id));
 $('totitle').addEventListener('click',showTitle);
