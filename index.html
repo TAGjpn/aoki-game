@@ -123,7 +123,7 @@ body.mode-title .top,body.mode-title .bottom,body.mode-title #banner{display:non
 .best b{font-family:var(--lcd);font-weight:400;font-size:20px;color:var(--gold)}
 #title .big{height:62px;border:0;border-radius:18px;background:var(--gold);color:#12131f;font-family:var(--disp);font-size:28px;letter-spacing:.12em;box-shadow:0 6px 0 #b8901c;cursor:pointer;animation:breathe 1.6s ease-in-out infinite}
 @keyframes breathe{50%{transform:scale(1.03)}}
-#title .row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+#title .row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
 #title .row button{height:48px;border-radius:14px;border:2px solid rgba(246,241,231,.35);background:rgba(18,16,34,.6);color:var(--ink);font:800 15px var(--body);cursor:pointer}
 #title button:focus-visible,.sheet button:focus-visible,#over button:focus-visible{outline:3px solid var(--cyan);outline-offset:2px}
 .caution{margin:2px 0 0;display:flex;gap:8px;align-items:center;justify-content:center;font-size:11px;color:var(--ink)}
@@ -154,6 +154,28 @@ body.mode-title .top,body.mode-title .bottom,body.mode-title #banner{display:non
 #over .done{margin:0;font-size:13px;font-weight:800;color:var(--cyan)}
 #over .row2{width:100%;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
 #over .row2 button{margin:0;height:46px;font:800 14px var(--body);background:transparent;color:var(--ink);border:2px solid #4a4566;box-shadow:none;border-radius:12px}
+.tabs.cat{background:transparent;padding:0;gap:6px}
+.tabs.cat button{background:#e4ddcc;height:32px;font-size:13px}
+.tabs.cat button.on{background:var(--pink);color:#12131f}
+#ranklist li .s small{font-family:var(--body);font-size:11px;color:#5a5670;margin-left:2px}
+.zk{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
+.zk li{background:#fff;border-radius:10px;padding:8px 10px;display:flex;flex-direction:column;gap:2px;min-height:42px;justify-content:center}
+.zk li b{font-size:13px;line-height:1.35}
+.zk li small{font-size:11px;color:#5a5670}
+.zk li.no{background:#e4ddcc}
+.zk li.no b{color:#8a85a0;letter-spacing:.1em}
+.zprog{font-family:var(--lcd);font-size:15px;color:#b8361a}
+#over .otitle{margin:0;font-size:13px;font-weight:800;color:var(--gold)}
+#over .onew{margin:0;font-size:12px;font-weight:800;color:#12131f;background:var(--cyan);border-radius:999px;padding:3px 10px}
+#banner.rare{box-shadow:0 6px 0 #5b2a9c}
+#banner.rare .kind{color:#6b2fc4!important}
+#film{position:fixed;inset:0;pointer-events:none;z-index:3}
+#film::before,#film::after{content:'';position:absolute;left:0;right:0;height:13vh;background:#000}
+#film::before{top:0}#film::after{bottom:0}
+#film span{position:absolute;left:16px;top:calc(13vh + 10px);font-family:var(--lcd);font-size:16px;color:#ff3b3b;animation:blink 1s steps(2) infinite}
+#film b{position:absolute;left:0;right:0;bottom:calc(13vh + 16px);text-align:center;font-family:var(--disp);font-weight:400;font-size:44px;letter-spacing:.3em;color:#f6f1e7;text-shadow:0 4px 0 #000}
+body.quake #stage{animation:quake .12s linear infinite}
+@keyframes quake{0%{transform:translate(0,0)}25%{transform:translate(-5px,3px)}50%{transform:translate(4px,-3px)}75%{transform:translate(-3px,-2px)}100%{transform:translate(0,0)}}
 #err{position:fixed;inset:auto 16px 50% 16px;text-align:center;font-size:14px;color:var(--ink)}
 @media (prefers-reduced-motion: reduce){.pop,#toast,#banner{animation-duration:.01s}}
 </style>
@@ -188,7 +210,7 @@ body.mode-title .top,body.mode-title .bottom,body.mode-title #banner{display:non
   <div class="tt-bottom">
     <div class="best">自己ベスト <b id="best">0</b> pt</div>
     <button type="button" id="startbtn" class="big">スタート</button>
-    <div class="row"><button type="button" id="rankbtn">ランキング</button><button type="button" id="howbtn">遊び方</button></div>
+    <div class="row"><button type="button" id="rankbtn">ランキング</button><button type="button" id="zukanbtn">図鑑</button><button type="button" id="howbtn">遊び方</button></div>
     <p class="caution"><span>安全上のご注意</span><em id="caution">パチンコ店の近くに放置しないでください</em></p>
   </div>
 </div>
@@ -200,6 +222,8 @@ body.mode-title .top,body.mode-title .bottom,body.mode-title #banner{display:non
     <li><b>所持金が0円になったら即アウト</b>。ごはんにもお金がかかるので、ショップで働いて稼ごう。</li>
     <li>パチンコと雀荘はポイントが稼げて、<b>お金は増えたり減ったり</b>。ただし<b>抜けるには連打</b>が必要。確変中はもっと抜けにくい。</li>
     <li>黄色い<b>チャンス指令</b>（新台入替など）は行かなくてもOK。行けば大量得点。</li>
+    <li>たまに<b>レア事件</b>が起きます。地震は<b>画面を連打</b>、撮影中は<b>何もさわらない</b>こと。</li>
+    <li>死因・レア事件・称号は<b>図鑑</b>に記録されます。</li>
     <li>朝9時スタート。<b>夜になるほど</b>指令が速く、連打が重くなります。</li>
   </ol>
   <button type="button" class="close" data-close="how">閉じる</button>
@@ -207,13 +231,23 @@ body.mode-title .top,body.mode-title .bottom,body.mode-title #banner{display:non
 <div id="rank" class="sheet" hidden><div class="card">
   <h2>ランキング</h2>
   <div class="tabs" role="tablist"><button type="button" id="tabToday" class="on" role="tab">今日</button><button type="button" id="tabAll" role="tab">歴代</button></div>
+  <div class="tabs cat" role="tablist" style="grid-template-columns:repeat(3,minmax(0,1fr))"><button type="button" data-sort="score" class="on">スコア</button><button type="button" data-sort="weight">最高体重</button><button type="button" data-sort="earned">稼いだ額</button></div>
   <p class="note" id="ranknote"></p>
   <ol id="ranklist"></ol>
   <button type="button" class="close" data-close="rank">閉じる</button>
 </div></div>
+<div id="zukan" class="sheet" hidden><div class="card">
+  <h2>図鑑</h2>
+  <div class="tabs" role="tablist" style="grid-template-columns:repeat(3,minmax(0,1fr))"><button type="button" data-zk="death" class="on">死因</button><button type="button" data-zk="rare">レア事件</button><button type="button" data-zk="title">称号</button></div>
+  <p class="note"><span id="zknote"></span> <b class="zprog" id="zkprog"></b></p>
+  <ul class="zk" id="zklist"></ul>
+  <p class="note">図鑑と称号はこの端末のブラウザに保存されます。</p>
+  <button type="button" class="close" data-close="zukan">閉じる</button>
+</div></div>
+<div id="film" hidden><span>● REC</span><b>AOKI</b></div>
 <div id="fx"></div>
-<div id="mash" hidden><b>連打で離席！</b><div class="segs" id="segs"></div><div class="mrow"><small id="mashs">台から離れられない…</small><span id="mashn">0 / 4</span></div></div>
-<div id="over" hidden><div class="ov"><h1>GAME OVER</h1><p class="ck">死因</p><p id="ocause"></p><b id="oscore"></b><span id="ostat"></span>
+<div id="mash" hidden><b id="mashb">連打で離席！</b><div class="segs" id="segs"></div><div class="mrow"><small id="mashs">台から離れられない…</small><span id="mashn">0 / 4</span></div></div>
+<div id="over" hidden><div class="ov"><h1>GAME OVER</h1><p class="ck">死因</p><p id="ocause"></p><p class="onew" id="onew" hidden></p><b id="oscore"></b><p class="otitle" id="otitle"></p><span id="ostat"></span>
 <form class="reg" id="regform" onsubmit="return false"><label for="pname" class="sr">名前</label><input id="pname" type="text" maxlength="12" placeholder="名前を入れてランキング登録" autocomplete="nickname"><button type="submit" id="regbtn">登録</button></form>
 <p class="done" id="regdone" hidden></p>
 <button type="button" class="share" id="sharebtn">結果をシェア</button>
@@ -496,7 +530,7 @@ evRing.rotation.x=-Math.PI/2; evRing.position.y=0.08; evRing.visible=false; W.ad
 const arrow=new T.Mesh(new T.ConeGeometry(0.9,1.7,4),glow('#ff4d8d',1.2)); arrow.rotation.x=Math.PI; arrow.visible=false; W.add(arrow);
 
 // ---------- state ----------
-const S={mode:'title',camK:0,score:0,money:30000,weight:148,maxW:148,hunger:80,t:0,cur:'shop',walking:false,path:[],dest:null,lock:0,lockT:0,lockFor:null,fever:0,ev:null,nextEv:6,acc:0,level:1,combo:0,over:false};
+const S={mode:'title',camK:0,score:0,money:30000,weight:148,maxW:148,hunger:80,t:0,cur:'shop',walking:false,path:[],dest:null,lock:0,lockT:0,lockFor:null,fever:0,ev:null,nextEv:6,acc:0,level:1,combo:0,over:false,earned:0,fevers:0,doubles:0,yaku:0,quake:0,film:0,seen:[],lastRare:-99,tm:{}};
 A.root.position.set(PL.shop.door.x,0,PL.shop.door.z);
 
 function pathTo(k){
@@ -562,49 +596,103 @@ const AUTO={
   hunger:{auto:1,t:'お腹が限界',d:'ごはんを食べに行け',p:'food',o:'空腹で動けなくなった'},
   weight:{auto:1,t:'体重警報',d:'170kg突破。鍛えろ',p:'gym',o:'6XLが入らなくなった'}
 };
-function evLimit(e){return e.kind==='chance'?8:Math.max(3.2,8.5-(S.level-1)*0.4);}
+const RARES=[
+  {id:'quake',t:'地震発生！',d:'画面を連打して地中へ避難',kind:'mash',o:'地震で逃げ遅れた',minLv:2,w:3},
+  {id:'film',t:'ハリウッドが撮影中',d:'「AOKI」本番中。3秒間さわるな',kind:'freeze',o:'撮影中に動いた',minLv:2,w:3},
+  {id:'legend',t:'伝説の新台',d:'行けば超確変（任意）',p:'pachi',kind:'chance',minLv:1,w:2},
+  {id:'tenho',t:'天和の気配',d:'行けば天和のチャンス（任意）',p:'mahjong',kind:'chance',minLv:1,w:2},
+  {id:'lotto',t:'宝くじが当たった',d:'+¥20,000',kind:'instant',minLv:1,w:2},
+  {id:'sashiire',t:'店長から差し入れ',d:'満腹度アップ',kind:'instant',minLv:1,w:2},
+  {id:'scale',t:'体重計がバグった',d:'なぜか -8kg',kind:'instant',minLv:1,w:2}
+];
+const DEATHS=[...new Set([...EVENTS.filter(e=>e.o).map(e=>e.o),...Object.values(AUTO).map(e=>e.o),'お会計で所持金0円','パチンコで所持金0円','所持金0円で碧南に帰った',...RARES.filter(e=>e.o).map(e=>e.o)])];
+const TITLES=[
+  {t:'夜の住人',d:'0時まで生き延びた',f:()=>S.t>=180},
+  {t:'天和の男',d:'天和をアガった',f:()=>S.seen.includes('tenho!')},
+  {t:'地底紳士',d:'地震から地中へ生還',f:()=>S.quake>0},
+  {t:'ハリウッド俳優',d:'撮影を最後まで耐えた',f:()=>S.film>0},
+  {t:'役満ハンター',d:'役満をアガった',f:()=>S.yaku>0},
+  {t:'確変の申し子',d:'確変に2回以上入った',f:()=>S.fevers>=2},
+  {t:'一攫千金',d:'1回で¥80,000以上稼いだ',f:()=>S.earned>=80000},
+  {t:'ダブルメイン職人',d:'ダブルメインを3回',f:()=>S.doubles>=3},
+  {t:'重量級の星',d:'体重170kgに到達',f:()=>S.maxW>=170},
+  {t:'真面目な店員',d:'ショップで60秒働いた',f:()=>(S.tm.shop||0)>=60},
+  {t:'ジムの住人',d:'ジムで30秒鍛えた',f:()=>(S.tm.gym||0)>=30},
+  {t:'出勤即退場',d:'30秒以内にアウト',f:()=>S.t<30},
+  {t:'ふつうの148kg',d:'とりあえず1回遊んだ',f:()=>true}
+];
+function pickRare(){
+  if(S.t-S.lastRare<40||Math.random()>=0.08)return null;
+  const list=RARES.filter(r=>S.level>=r.minLv&&r.p!==(S.cur||S.dest)); if(!list.length)return null;
+  let x=Math.random()*list.reduce((a,r)=>a+r.w,0); for(const r of list){x-=r.w;if(x<=0)return r;} return list[0];
+}
+function noteRare(id){if(!S.seen.includes(id))S.seen.push(id);const z=lsGet('aoki-rares',{});const isNew=!z[id];z[id]=(z[id]||0)+1;lsSet('aoki-rares',z);return isNew;}
+function runInstant(r){
+  S.lastRare=S.t; const isNew=noteRare(r.id);
+  if(r.id==='lotto')S.money+=20000; if(r.id==='sashiire')S.hunger=Math.min(100,S.hunger+60); if(r.id==='scale')S.weight=Math.max(148,S.weight-8);
+  toast(r.t,(isNew?'NEW ':'')+r.d); S.nextEv=S.t+4+Math.random()*2;
+}
+function evLimit(e){if(e.kind==='mash')return 5;if(e.kind==='freeze')return 3;return e.kind==='chance'?8:Math.max(3.2,8.5-(S.level-1)*0.4);}
 function startEvent(base){
   if(S.ev||S.over)return;
   const here=S.cur||S.dest;
   let e=base;
+  if(!e){const r=pickRare(); if(r&&r.kind==='instant'){runInstant(r);return;} if(r){e=r;S.lastRare=S.t;}}
   if(!e){const list=EVENTS.filter(x=>x.p!==here);e=list[Math.floor(Math.random()*list.length)];}
   e=Object.assign({},e); e.limit=e.left=evLimit(e); S.ev=e;
-  const chance=e.kind==='chance';
-  $('bk').textContent=chance?'チャンス ・ 任意':'指令 ・ 移動';
-  $('banner').classList.toggle('chance',chance);
+  const chance=e.kind==='chance', rare=!!e.id;
+  if(rare)e.isNew=noteRare(e.id);
+  $('bk').textContent=(rare?'レア事件'+(e.isNew?' NEW':'')+' ・ ':'')+(e.kind==='mash'?'連打':e.kind==='freeze'?'静止':chance?'チャンス ・ 任意':'指令 ・ 移動');
+  $('banner').classList.toggle('chance',chance); $('banner').classList.toggle('rare',rare&&!chance);
   $('bt').textContent=e.t;
-  let d=e.d; if(!chance&&LOCK[S.cur]&&!S.walking)d+='（連打で離席！）';
+  let d=e.d; if(!chance&&e.p&&LOCK[S.cur]&&!S.walking)d+='（連打で離席！）';
   $('bd').textContent=d; $('banner').hidden=false;
+  if(e.kind==='mash'){e.n=0;e.need=10+Math.floor(S.level/2);document.body.classList.add('quake');showQuake();return;}
+  if(e.kind==='freeze'){e.grace=0.6;$('film').hidden=false;return;}
   const p=PL[e.p]; evRing.position.set(p.door.x,0.08,p.door.z); evRing.visible=true;
   evRing.material.color.set(chance?'#ffd23f':'#ff4d8d'); arrow.material.color.set(chance?'#ffd23f':'#ff4d8d'); arrow.material.emissive.set(chance?'#ffd23f':'#ff4d8d');
   arrow.position.set(p.x,p.h+4,p.z+0.6); arrow.visible=true; arrow.userData.p=p;
   if(e.p==='pachi'&&chance)groups.pachi.userData.nobori.visible=true;
 }
+function showQuake(){const e=S.ev;mashEl.hidden=false;$('mashb').textContent='連打で避難！';segs.innerHTML='';
+  for(let i=0;i<e.need;i++){const s=document.createElement('i');if(i<e.n)s.className='on';segs.appendChild(s);}
+  $('mashs').textContent=e.n<e.need*0.5?'机の下…背中がはみ出る':'地中へ掘り進め！'; $('mashn').textContent=e.n+' / '+e.need;
+  mashEl.classList.remove('hit'); void mashEl.offsetWidth; mashEl.classList.add('hit');}
 function clearEvent(ok){
-  const e=S.ev; $('banner').hidden=true; evRing.visible=false; arrow.visible=false; groups.pachi.userData.nobori.visible=false;
+  const e=S.ev; $('banner').hidden=true; $('film').hidden=true; document.body.classList.remove('quake'); if(e.kind==='mash'){hideMash();$('mashb').textContent='連打で離席！';} evRing.visible=false; arrow.visible=false; groups.pachi.userData.nobori.visible=false;
   S.ev=null; S.nextEv=S.t+Math.max(4.5,10.5-S.level*1.0)+Math.random()*2;
   if(e.kind==='chance'){
     if(!ok){toast('チャンスを逃した','次こそ');return;}
-    if(e.p==='pachi'){S.fever=6+S.level;S.score+=1500;toast('新台で確変！','+1500pt');}
-    else{S.score+=3000;toast('役満！','赤ウーピン入り +3000pt');}
+    if(e.id==='legend'){S.fever=8+S.level;S.fevers++;S.score+=2500;toast('伝説の新台！','超確変 +2500pt');}
+    else if(e.id==='tenho'){S.score+=5000;S.yaku++;noteRare('tenho!');toast('天和！','配牌でアガリ +5000pt');}
+    else if(e.p==='pachi'){S.fever=6+S.level;S.fevers++;S.score+=1500;toast('新台で確変！','+1500pt');}
+    else{S.score+=3000;S.yaku++;toast('役満！','赤ウーピン入り +3000pt');}
     return;
   }
+  if(ok&&e.kind==='mash'){const b=700+S.level*100;S.score+=b;S.quake++;toast('地底紳士として生還','+'+b+'pt');return;}
+  if(ok&&e.kind==='freeze'){const b=500+S.level*100;S.score+=b;S.film++;toast('AOKI 全米公開決定','+'+b+'pt');return;}
   if(ok){const b=e.auto?100+S.level*50:200+S.level*100;S.score+=b;S.combo++;toast('クリア！','+'+b+'pt');}
   else gameOver(e.o);
 }
 function gameOver(cause){
   S.over=true; hideMash(); S.walking=false; S.path=[];
-  $('ocause').textContent=cause;
+  $('ocause').textContent=cause; $('film').hidden=true; document.body.classList.remove('quake'); $('mashb').textContent='連打で離席！';
+  const dz=lsGet('aoki-deaths',{}); const dNew=!dz[cause]; dz[cause]=(dz[cause]||0)+1; lsSet('aoki-deaths',dz);
+  const got=TITLES.filter(x=>x.f()); const title=got[0].t; const tz=lsGet('aoki-titles',{}); let tNew=[];
+  got.forEach(x=>{if(!tz[x.t])tNew.push(x.t);tz[x.t]=(tz[x.t]||0)+1;}); lsSet('aoki-titles',tz);
+  const dCount=DEATHS.filter(d=>dz[d]).length;
+  $('onew').textContent=dNew?'NEW！ 死因図鑑に登録（'+dCount+'/'+DEATHS.length+'）':'死因図鑑 '+dCount+'/'+DEATHS.length; $('onew').hidden=false;
+  $('otitle').textContent='称号：'+title+(tNew.length?'（新しい称号 '+tNew.length+'個）':'');
   $('oscore').textContent=fmt(S.score)+' pt';
   const mm=Math.floor(S.t/60),ss=Math.floor(S.t%60);
   $('ostat').textContent='生存 '+mm+':'+(ss<10?'0':'')+ss+' ／ Lv.'+S.level+' ／ 最高体重 '+Math.round(S.maxW)+'kg';
-  lastRec={id:Date.now().toString(36)+Math.random().toString(36).slice(2,6),name:'',score:Math.round(S.score),cause:cause,clock:clock(),level:S.level,maxW:Math.round(S.maxW),at:new Date().toISOString()};
+  lastRec={id:Date.now().toString(36)+Math.random().toString(36).slice(2,6),name:'',score:Math.round(S.score),cause:cause,clock:clock(),level:S.level,maxW:Math.round(S.maxW),earned:Math.round(S.earned),title:title,at:new Date().toISOString()};
   if(S.score>lsGet('aoki-best',0))lsSet('aoki-best',Math.round(S.score));
   $('pname').value=lsGet('aoki-name',''); $('regbtn').disabled=false; $('regform').hidden=false; $('regdone').hidden=true;
   S.mode='over'; $('over').hidden=false;
 }
 function reset(){
-  Object.assign(S,{score:0,money:30000,weight:148,maxW:148,hunger:80,t:0,cur:'shop',walking:false,path:[],dest:null,lock:0,lockT:0,lockFor:null,fever:0,ev:null,nextEv:6,acc:0,level:1,combo:0,over:false});
+  Object.assign(S,{score:0,money:30000,weight:148,maxW:148,hunger:80,t:0,cur:'shop',walking:false,path:[],dest:null,lock:0,lockT:0,lockFor:null,fever:0,ev:null,nextEv:6,acc:0,level:1,combo:0,over:false,earned:0,fevers:0,doubles:0,yaku:0,quake:0,film:0,seen:[],lastRare:-99,tm:{}});
   A.root.position.set(PL.shop.door.x,0,PL.shop.door.z); ring.visible=false; evRing.visible=false; arrow.visible=false;
   groups.pachi.userData.nobori.visible=false; $('banner').hidden=true; $('over').hidden=true; hideMash();
   setStatus(PL.shop.line,'+'+PL.shop.rate+'pt/秒'); say('今日も148kgで出勤');
@@ -624,6 +712,11 @@ function hideMash(){mashEl.hidden=true;}
 function tapFx(ev){if(!ev)return;const d=document.createElement('div');d.className='tapfx';d.textContent='連打！';d.style.left=ev.clientX+'px';d.style.top=ev.clientY+'px';fx.appendChild(d);setTimeout(()=>d.remove(),650);}
 
 // ---------- input ----------
+addEventListener('pointerdown',e=>{
+  const ev=S.ev; if(!ev||S.over||S.mode!=='play')return;
+  if(ev.kind==='mash'){e.stopPropagation();ev.n++;tapFx(e);showQuake();if(ev.n>=ev.need)clearEvent(true);}
+  else if(ev.kind==='freeze'){e.stopPropagation();if(ev.grace>0)return;clearEvent(false);}
+},true);
 const ray=new T.Raycaster(), ndc=new T.Vector2();
 renderer.domElement.addEventListener('pointerdown',e=>{
   const r=renderer.domElement.getBoundingClientRect();
@@ -660,36 +753,56 @@ const SHARED=/^https:\/\/script\.google\.com\//.test(RANK_URL);
 function lsGet(k,d){try{const v=localStorage.getItem(k);return v==null?d:JSON.parse(v);}catch(e){return d;}}
 function lsSet(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}}
 function jstDay(d){return new Date((d?new Date(d):new Date()).getTime()+9*3600e3).toISOString().slice(0,10);}
-let rankScope='today';
-async function loadRank(scope){
-  if(SHARED){try{const r=await fetch(RANK_URL+'?scope='+scope+'&_='+Date.now());const j=await r.json();if(Array.isArray(j))return {list:j,ok:true};}catch(e){}}
-  let l=lsGet('aoki-rank',[]); if(scope==='today'){const t=jstDay();l=l.filter(r=>r.at&&jstDay(r.at)===t);}
-  return {list:l,ok:false};
+let rankScope='today', rankSort='score';
+const SORTS={score:{k:'score',f:r=>fmt(r.score),u:'pt'},weight:{k:'maxW',f:r=>fmt(r.maxW||0),u:'kg'},earned:{k:'earned',f:r=>'¥'+fmt(r.earned||0),u:''}};
+async function loadRank(scope,sort){
+  const k=SORTS[sort||'score'].k; let l=null,ok=false;
+  if(SHARED){try{const r=await fetch(RANK_URL+'?scope='+scope+'&sort='+(sort||'score')+'&_='+Date.now());const j=await r.json();if(Array.isArray(j)){l=j;ok=true;}}catch(e){}}
+  if(!l){l=lsGet('aoki-rank',[]); if(scope==='today'){const t=jstDay();l=l.filter(r=>r.at&&jstDay(r.at)===t);}}
+  l=l.slice().sort((a,b)=>(b[k]||0)-(a[k]||0));
+  return {list:l,ok:ok};
 }
 async function submitRank(rec){
   const list=lsGet('aoki-rank',[]);list.push(rec);list.sort((a,b)=>b.score-a.score);lsSet('aoki-rank',list.slice(0,50));
   if(SHARED){try{await fetch(RANK_URL,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(rec)});}catch(e){}}
-  const all=await loadRank('today'); return all.list.findIndex(r=>r.id===rec.id)+1;
+  const all=await loadRank('today','score'); return all.list.findIndex(r=>r.id===rec.id)+1;
 }
 let rankMe=null;
-async function showRank(myId,scope){
-  if(myId!==undefined)rankMe=myId; if(scope)rankScope=scope;
+async function showRank(myId,scope,sort){
+  if(myId!==undefined)rankMe=myId; if(scope)rankScope=scope; if(sort)rankSort=sort;
   $('tabToday').classList.toggle('on',rankScope==='today'); $('tabAll').classList.toggle('on',rankScope==='all');
+  document.querySelectorAll('[data-sort]').forEach(b=>b.classList.toggle('on',b.dataset.sort===rankSort));
   const ol=$('ranklist'); ol.innerHTML='<li class="empty">読み込み中…</li>'; $('rank').hidden=false;
-  const res=await loadRank(rankScope); const list=res.list.slice(0,30); ol.innerHTML='';
+  const S_=SORTS[rankSort]; const res=await loadRank(rankScope,rankSort); const list=res.list.filter(r=>rankSort==='score'||r[S_.k]>0).slice(0,30); ol.innerHTML='';
   $('ranknote').textContent=res.ok?(rankScope==='today'?'今日のみんなの記録（上位30）':'歴代のみんなの記録（上位30）'):'ランキングに接続できないため、この端末の記録を表示しています。';
   if(!list.length){ol.innerHTML='<li class="empty">まだ記録がありません。最初の1位になろう</li>';return;}
   list.forEach((r,i)=>{const li=document.createElement('li');if(r.id&&r.id===rankMe)li.className='me';
     const a=document.createElement('span');a.className='r';a.textContent=i+1;
-    const n=document.createElement('span');n.className='n';const b=document.createElement('b');b.textContent=r.name;const sm=document.createElement('small');sm.textContent=(r.cause||'')+' ／ '+(r.clock||'');n.append(b,sm);
-    const s=document.createElement('span');s.className='s';s.textContent=fmt(r.score);
+    const n=document.createElement('span');n.className='n';const b=document.createElement('b');b.textContent=r.name;const sm=document.createElement('small');sm.textContent=(r.title?r.title+' ／ ':'')+(r.cause||'');n.append(b,sm);
+    const s=document.createElement('span');s.className='s';s.textContent=S_.f(r);if(S_.u){const u=document.createElement('small');u.textContent=S_.u;s.appendChild(u);}
     li.append(a,n,s);ol.appendChild(li);});
 }
+document.querySelectorAll('[data-sort]').forEach(b=>b.addEventListener('click',()=>showRank(undefined,undefined,b.dataset.sort)));
+// ---------- 図鑑 ----------
+let zkTab='death';
+function showZukan(tab){
+  if(tab)zkTab=tab; document.querySelectorAll('[data-zk]').forEach(b=>b.classList.toggle('on',b.dataset.zk===zkTab));
+  const ul=$('zklist'); ul.innerHTML=''; let items,store,note;
+  if(zkTab==='death'){store=lsGet('aoki-deaths',{});items=DEATHS.map(d=>({k:d,t:d}));note='ゲームオーバーの理由を集めよう';}
+  else if(zkTab==='rare'){store=lsGet('aoki-rares',{});items=RARES.map(r=>({k:r.id,t:r.t,d:r.d}));note='たまにしか起きない事件';}
+  else{store=lsGet('aoki-titles',{});items=TITLES.map(x=>({k:x.t,t:x.t,d:x.d}));note='プレイ内容でもらえる称号';}
+  let n=0; items.forEach(it=>{const li=document.createElement('li');const c=store[it.k]||0;const b=document.createElement('b');const sm=document.createElement('small');
+    if(c){n++;b.textContent=it.t;sm.textContent=(it.d?it.d+' ・ ':'')+c+'回';}else{li.className='no';b.textContent='？？？';sm.textContent=zkTab==='title'?it.d:'未発見';}
+    li.append(b,sm);ul.appendChild(li);});
+  $('zknote').textContent=note; $('zkprog').textContent=n+' / '+items.length; $('zukan').hidden=false;
+}
+document.querySelectorAll('[data-zk]').forEach(b=>b.addEventListener('click',()=>showZukan(b.dataset.zk)));
+$('zukanbtn').addEventListener('click',()=>showZukan());
 $('tabToday').addEventListener('click',()=>showRank(undefined,'today'));
 $('tabAll').addEventListener('click',()=>showRank(undefined,'all'));
 $('sharebtn').addEventListener('click',async()=>{
   if(!lastRec)return; const url=location.href.split('#')[0].split('?')[0];
-  const text='青木くん、離席できません。\n'+fmt(lastRec.score)+'pt（死因：'+lastRec.cause+'）\n'+url;
+  const text='青木くん、離席できません。\n'+fmt(lastRec.score)+'pt【'+lastRec.title+'】\n死因：'+lastRec.cause+'\n'+url;
   try{if(navigator.share){await navigator.share({text});return;}}catch(e){if(e&&e.name==='AbortError')return;}
   try{await navigator.clipboard.writeText(text);$('sharebtn').textContent='コピーしました';}catch(e){$('sharebtn').textContent='コピーできませんでした';}
   setTimeout(()=>{$('sharebtn').textContent='結果をシェア';},2000);
@@ -789,17 +902,18 @@ function tick(now){
       if(c==='pachi'){
         if(S.fever>0){pts=120;S.money+=2000;}
         else{S.money-=1200;
-          if(Math.random()<0.07){S.fever=5;toast('確変突入！','FEVER');}
+          if(Math.random()<0.07){S.fever=5;S.fevers++;toast('確変突入！','FEVER');}
           else if(Math.random()<0.06){S.money+=5000;big=true;say('当たった！');}}
       }
       if(c==='mahjong'&&Math.random()<0.34){
-        if(Math.random()<0.04){S.score+=3000;S.money+=8000;big=true;toast('役満！','国士無双 +3000pt');}
+        if(Math.random()<0.04){S.score+=3000;S.money+=8000;S.yaku++;big=true;toast('役満！','国士無双 +3000pt');}
         else if(Math.random()<0.56){S.money+=1500+Math.floor(Math.random()*4)*500;say('ツモ');}
         else S.money-=1500+Math.floor(Math.random()*4)*500;
       }
       if(c==='shop')S.money+=900;
       if(c==='gym'){S.weight=Math.max(148,S.weight-2);S.hunger-=4;}
-      if(c==='food'){S.hunger+=20;S.weight+=1.2;S.money-=800;if(Math.random()<0.18){S.weight+=1.2;S.hunger+=10;S.money-=800;toast('ダブルメイン！','メイン料理が2品');}}
+      if(c==='food'){S.hunger+=20;S.weight+=1.2;S.money-=800;if(Math.random()<0.18){S.weight+=1.2;S.hunger+=10;S.money-=800;S.doubles++;toast('ダブルメイン！','メイン料理が2品');}}
+      if(S.money>m0)S.earned+=S.money-m0; S.tm[c]=(S.tm[c]||0)+1;
       yen(S.money-m0,big);
       S.score+=pts; pop('+'+pts,pts>=100);
     }
@@ -814,7 +928,7 @@ function tick(now){
     }
   }
   if(!S.ev&&!S.over&&t>S.nextEv)startEvent();
-  if(S.ev&&!S.over){S.ev.left-=dt;$('bs').textContent=Math.max(0,S.ev.left).toFixed(1);$('bb').style.width=Math.max(0,S.ev.left/S.ev.limit*100)+'%';if(S.ev.left<=0)clearEvent(false);}
+  if(S.ev&&!S.over){S.ev.left-=dt;$('bs').textContent=Math.max(0,S.ev.left).toFixed(1);$('bb').style.width=Math.max(0,S.ev.left/S.ev.limit*100)+'%';if(S.ev.grace>0)S.ev.grace-=dt; if(S.ev.left<=0)clearEvent(S.ev.kind==='freeze');}
   // ui
   $('score').textContent=fmt(S.score); $('lv').textContent='Lv.'+S.level;
   const mm=Math.floor(t/60),ss=Math.floor(t%60);$('time').textContent=clock();
