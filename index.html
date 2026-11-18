@@ -455,70 +455,62 @@ box(W,1.2,0.02,0.08,M('#2a2838'),-9.6,0.05,7.6,false).rotation.y=0.6;
 
 // ---------- 青木くん ----------
 function makeAoki(){
+  // フィギュア風：つるんとした黒髪、金の丸メガネ、点の目、ほっぺ、スレートグレーの長袖、カーキのパンツ、黒サンダル
   const root=new T.Group(); const body=new T.Group(); root.add(body);
-  const shirt=M('#33353b',{flatShading:false}), pants=M('#bba77c',{flatShading:false}), skin=M('#ebb88e',{flatShading:false}), shoe=M('#16161a',{flatShading:false});
-  const hairM=new T.MeshStandardMaterial({color:'#121215',roughness:.55,side:T.DoubleSide});
-  const gold=new T.MeshStandardMaterial({color:'#e6c39a',metalness:.85,roughness:.22});
-  const silver=new T.MeshStandardMaterial({color:'#f1f3f6',metalness:.9,roughness:.18});
+  const sm=(c,o)=>new T.MeshStandardMaterial(Object.assign({color:c,roughness:.7,metalness:0},o||{}));
+  const shirt=sm('#3f4352'), pants=sm('#c2a876'), skin=sm('#f3c7a6',{roughness:.6}), shoe=sm('#17171c',{roughness:.5});
+  const hairM=sm('#15151a',{roughness:.32,side:T.DoubleSide}), white=sm('#f4f5f7',{roughness:.4});
+  const gold=sm('#d9ad6a',{metalness:.75,roughness:.28}), silver=sm('#f1f3f6',{metalness:.6,roughness:.25});
   const legs=[],arms=[];
-  // カーキのワイドパンツと黒い靴
-  [-1,1].forEach(s=>{const pv=new T.Group();pv.position.set(0.38*s,1.02,0);body.add(pv);
-    add(pv,new T.CylinderGeometry(0.42,0.55,1.0,16),pants,0,-0.5,0);
-    const sh=add(pv,new T.SphereGeometry(0.3,14,10),shoe,0,-0.98,0.14);sh.scale.set(1.05,0.42,1.45);
+  // 短い脚と黒サンダル（つま先は素足）
+  [-1,1].forEach(s=>{const pv=new T.Group();pv.position.set(0.36*s,0.98,0);body.add(pv);
+    add(pv,new T.CylinderGeometry(0.4,0.43,0.86,18),pants,0,-0.42,0);
+    const so=add(pv,new T.SphereGeometry(0.34,16,12),shoe,0,-0.9,0.12);so.scale.set(1.0,0.36,1.45);
+    const st=add(pv,new T.SphereGeometry(0.3,14,10),shoe,0,-0.82,0.02);st.scale.set(1.0,0.5,1.0);
+    const toe=add(pv,new T.SphereGeometry(0.25,14,10),skin,0,-0.8,0.34);toe.scale.set(1.0,0.72,0.9);
     legs.push(pv);});
-  add(body,new T.CylinderGeometry(0.95,0.9,0.45,22),pants,0,1.1,0);
-  // 濃いグレーの長袖。お腹が主役
-  const torso=add(body,new T.SphereGeometry(1.0,30,22),shirt,0,1.75,0.02); torso.scale.set(1.1,1.0,0.98);
-  add(body,new T.SphereGeometry(0.82,26,18),shirt,0,1.45,0.26);
-  const chest=add(body,new T.SphereGeometry(0.86,24,16),shirt,0,2.18,-0.02); chest.scale.set(1.14,0.7,0.9);
-  [-1,1].forEach(s=>{const pv=new T.Group();pv.position.set(1.0*s,2.22,0);body.add(pv);
-    add(pv,new T.SphereGeometry(0.32,14,12),shirt,0,0,0);
-    add(pv,new T.CylinderGeometry(0.29,0.25,1.0,14),shirt,0,-0.5,0);
-    add(pv,new T.CylinderGeometry(0.26,0.26,0.12,14),M('#26282d',{flatShading:false}),0,-0.98,0);
-    add(pv,new T.SphereGeometry(0.21,12,10),skin,0,-1.1,0);
-    const d=new T.Group();d.position.y=-1.15;pv.add(d);d.visible=false;
+  add(body,new T.CylinderGeometry(0.86,0.8,0.36,24),pants,0,1.06,0);
+  add(body,new T.CylinderGeometry(0.97,0.93,0.1,28),white,0,1.21,0.02);
+  // 大きな胴体。なで肩で首はほぼ無し
+  const torso=add(body,new T.SphereGeometry(1.0,32,24),shirt,0,1.9,0.04); torso.scale.set(1.12,0.98,1.0);
+  const belly=add(body,new T.SphereGeometry(0.9,28,20),shirt,0,1.62,0.2); belly.scale.set(1.08,0.9,1.0);
+  const sh=add(body,new T.SphereGeometry(0.8,24,16),shirt,0,2.4,-0.02); sh.scale.set(1.3,0.62,0.95);
+  [-1,1].forEach(s=>{const pv=new T.Group();pv.position.set(1.0*s,2.42,0);body.add(pv);
+    add(pv,new T.SphereGeometry(0.33,16,12),shirt,0,0,0);
+    add(pv,new T.CylinderGeometry(0.31,0.27,0.95,16),shirt,0,-0.48,0);
+    add(pv,new T.SphereGeometry(0.27,14,10),shirt,0,-0.95,0);
+    add(pv,new T.SphereGeometry(0.24,14,12),skin,0,-1.14,0);
+    const d=new T.Group();d.position.y=-1.2;pv.add(d);d.visible=false;
     const dm=new T.MeshStandardMaterial({color:'#d9dde3',metalness:.8,roughness:.3});
     const bar=add(d,new T.CylinderGeometry(0.05,0.05,0.7,8),dm,0,0,0);bar.rotation.x=Math.PI/2;
     [-0.3,0.3].forEach(z=>{const w=add(d,new T.CylinderGeometry(0.16,0.16,0.1,12),M('#22242b'),0,0,z);w.rotation.x=Math.PI/2;});
-    pv.userData.base=0.34*s; pv.userData.db=d; arms.push(pv);});
-  // シルバーの細いチェーン（胸に沿って垂れる）としずく形のトップ
+    pv.userData.base=0.3*s; pv.userData.db=d; arms.push(pv);});
+  // シルバーのネックレス（胸元のU字）
   const cp=[];
-  for(let i=0;i<=24;i++){const u=-1+2*i/24;const x=0.36*u;const y=2.56-0.52*(1-u*u);
-    const k=1-Math.pow(x/1.1,2)-Math.pow((y-1.75)/1.0,2);const z=0.02+0.98*Math.sqrt(Math.max(0.02,k))+0.035;cp.push(new T.Vector3(x,y,z));}
-  add(body,new T.TubeGeometry(new T.CatmullRomCurve3(cp),48,0.016,6,false),silver,0,0,0,false);
-  const pend=add(body,new T.TorusGeometry(0.075,0.016,6,16),silver,0,1.96,0.93,false); pend.scale.y=1.45; pend.rotation.x=-0.35;
-  add(body,new T.CylinderGeometry(0.4,0.44,0.24,18),skin,0,2.48,0.12);
-  // 頭：丸く大きい顔、二重あご
-  const head=new T.Group();head.position.set(0,2.86,0.22);body.add(head);
-  const face=add(head,new T.SphereGeometry(0.6,30,22),skin,0,0,0); face.scale.set(1.12,1.0,1.0);
-  [-1,1].forEach(s=>add(head,new T.SphereGeometry(0.3,16,12),skin,0.4*s,-0.25,0.19));
-  const chin=add(head,new T.SphereGeometry(0.34,16,12),skin,0,-0.43,0.22); chin.scale.set(1.35,0.68,1.0);
-  [-1,1].forEach(s=>add(head,new T.SphereGeometry(0.14,10,8),skin,0.67*s,-0.03,0));
-  const nose=add(head,new T.SphereGeometry(0.1,12,10),skin,0,-0.08,0.62); nose.scale.set(1.25,0.9,0.8);
-  const lip=M('#b97c70',{flatShading:false});
-  const ul=add(head,new T.SphereGeometry(0.1,12,8),lip,0,-0.27,0.6,false); ul.scale.set(1.5,0.42,0.6);
-  const ll=add(head,new T.SphereGeometry(0.1,12,8),lip,0,-0.335,0.585,false); ll.scale.set(1.4,0.5,0.6);
-  [-1,1].forEach(s=>{const e=add(head,new T.SphereGeometry(0.055,10,8),M('#120e0c'),0.23*s,0.03,0.565,false);e.scale.set(1.6,0.7,0.5);});
-  // 細い金縁の多角形メガネ
+  for(let i=0;i<=24;i++){const u=-1+2*i/24;const x=0.4*u;const y=2.74-0.42*(1-u*u);
+    const k=1-Math.pow(x/1.12,2)-Math.pow((y-1.9)/0.98,2);const z=0.04+Math.sqrt(Math.max(0.02,k))+0.03;cp.push(new T.Vector3(x,y,z));}
+  add(body,new T.TubeGeometry(new T.CatmullRomCurve3(cp),48,0.035,8,false),silver,0,0,0,false);
+  // 頭：大きく丸い顔
+  const head=new T.Group();head.position.set(0,3.02,0.16);body.add(head);
+  const face=add(head,new T.SphereGeometry(0.68,32,24),skin,0,0,0); face.scale.set(1.08,0.98,1.0);
+  const jaw=add(head,new T.SphereGeometry(0.5,20,14),skin,0,-0.28,0.1); jaw.scale.set(1.25,0.8,1.05);
+  [-1,1].forEach(s=>add(head,new T.SphereGeometry(0.15,12,10),skin,0.73*s,-0.06,-0.02));
+  add(head,new T.SphereGeometry(0.085,12,10),skin,0,-0.1,0.7);
+  const blush=new T.MeshStandardMaterial({color:'#f29a9a',roughness:.8,transparent:true,opacity:.75});
+  [-1,1].forEach(s=>{const b=add(head,new T.SphereGeometry(0.13,12,8),blush,0.42*s,-0.2,0.555,false);b.scale.set(1.2,0.7,0.35);b.rotation.y=0.55*s;});
+  const mouth=add(head,new T.SphereGeometry(0.07,12,8),sm('#a8443c'),0,-0.3,0.665,false); mouth.scale.set(1.5,0.5,0.5);
   [-1,1].forEach(s=>{
-    const r=add(head,new T.TorusGeometry(0.2,0.014,6,8),gold,0.245*s,0.03,0.665,false); r.rotation.z=Math.PI/8;
-    add(head,new T.CircleGeometry(0.19,8),new T.MeshStandardMaterial({color:'#ffffff',transparent:true,opacity:.12,roughness:.05}),0.245*s,0.03,0.664,false).rotation.z=Math.PI/8;
-    add(head,new T.BoxGeometry(0.014,0.014,0.6),gold,0.46*s,0.06,0.38,false);});
-  add(head,new T.BoxGeometry(0.1,0.014,0.014),gold,0,0.08,0.67,false);
-  // ノーセットの黒髪：重い前髪、耳まで隠れるボリューム、はねた毛
-  const a=1.0;
-  const back=add(head,new T.SphereGeometry(0.71,36,24,Math.PI/2+a,Math.PI*2-2*a,0,Math.PI*0.57),hairM,0,0.07,-0.02); back.scale.set(1.1,1.02,1.06);
-  const bang=add(head,new T.SphereGeometry(0.71,30,20,Math.PI/2-a,2*a,0,Math.PI*0.42),hairM,0,0.07,0.0); bang.scale.set(1.1,1.02,1.08);
-  [-1,1].forEach(s=>{const sd=add(head,new T.SphereGeometry(0.3,14,10),hairM,0.64*s,0.08,-0.06);sd.scale.set(0.7,1.1,1.1);});
-  seed=23;
-  for(let i=0;i<14;i++){const th=0.15+rnd()*Math.PI*0.4, ph=Math.PI/2+a+rnd()*(Math.PI*2-2*a), r=0.73;
-    const m=add(head,new T.SphereGeometry(0.2,12,8),hairM,-Math.cos(ph)*Math.sin(th)*r*1.1,Math.cos(th)*r+0.07,Math.sin(ph)*Math.sin(th)*r*1.06);m.scale.set(1,0.45,1);}
-  for(let i=0;i<8;i++){const x=-0.42+i*0.12+(rnd()-.5)*0.04;const z=Math.sqrt(Math.max(0,0.52-x*x*0.85))*1.02;
-    const c=add(head,new T.ConeGeometry(0.06,0.16+rnd()*0.08,4),hairM,x,0.22,z,false);c.rotation.x=Math.PI+0.25;}
-  for(let i=0;i<7;i++){const dir=new T.Vector3((rnd()-.5)*0.9,1,(rnd()-.6)*0.8).normalize();
-    const c=add(head,new T.ConeGeometry(0.035,0.42,4),hairM,dir.x*0.72,dir.y*0.74+0.07,dir.z*0.72,false);c.quaternion.setFromUnitVectors(new T.Vector3(0,1,0),dir);}
+    add(head,new T.SphereGeometry(0.062,12,10),sm('#0d0d10',{roughness:.2}),0.25*s,0.02,0.635,false).scale.set(1,1.25,0.6);
+    add(head,new T.SphereGeometry(0.02,8,6),white,0.25*s+0.02,0.05,0.675,false);});
+  // 金の丸メガネ
+  [-1,1].forEach(s=>{
+    add(head,new T.TorusGeometry(0.2,0.026,8,28),gold,0.26*s,0.02,0.73,false).rotation.y=0.12*s;
+    add(head,new T.BoxGeometry(0.022,0.022,0.62),gold,0.5*s,0.05,0.44,false);});
+  add(head,new T.BoxGeometry(0.1,0.024,0.024),gold,0,0.06,0.74,false);
+  // つるんとした黒髪（前髪は眉の上、後ろは長め）
+  const cap=add(head,new T.SphereGeometry(0.74,36,22,0,Math.PI*2,0,Math.PI*0.5),hairM,0,0.02,-0.03); cap.scale.set(1.1,1.04,1.06); cap.rotation.x=-0.42;
+  const backH=add(head,new T.SphereGeometry(0.72,28,18),hairM,0,0.02,-0.16); backH.scale.set(1.08,0.98,0.92);
   root.traverse(o=>{if(o.isMesh)o.castShadow=true;});
-  root.scale.setScalar(1.0);
   return {root,body,legs,arms,torso,head};
 }
 
